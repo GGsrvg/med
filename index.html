@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Калькулятор риска</title>
+    <meta charset=utf-8>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="text-center">Оценка сердечно-сосудистого риска у детей с нефротическим синдромом в зависимости от стадии заболевания.</h1>
+            </div>
+            <div class="card-body">
+                <form id="calculator-form">
+                    <div class="form-group row">
+                        <label for="param1" class="col-4 col-form-label text-right">ЛПНП (ммоль/л):</label>
+                        <div class="col-8">
+                            <input type="text" id="param1" class="form-control" value="0.0"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="param2" class="col-4 col-form-label text-right">Лп (а) (мг/дл):</label>
+                        <div class="col-8">
+                            <input type="text" id="param2" class="form-control" value="0.0"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="param3" class="col-4 col-form-label text-right">Общий холестерин в активную стадию (ммоль/л):</label>
+                        <div class="col-8">
+                            <input type="text" id="param3" class="form-control" value="0.0"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="param6" class="col-4 col-form-label text-right">Общий холестерин в ремиссию (ммоль/л):</label>
+                        <div class="col-8">
+                            <input type="text" id="param4" class="form-control" value="0.0"/>
+                        </div>
+                    </div>
+                </form>
+                <div class="form-group row">
+                    <label class="col-4 col-form-label text-right">Результат (%):</label>
+                    <div class="col-8">
+                        <input type="text" id="result" class="form-control" readonly />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        let p1 = $('#param1');
+        let p2 = $('#param2');
+        let p3 = $('#param3');
+        let p4 = $('#param4');
+        
+        p1.on("input", calculate);
+        p2.on("input", calculate);
+        p3.on("input", calculate);
+        p4.on("input", calculate);
+
+        function calculate() {
+            const lpnp = parseFloat(p1.val()) || 0;
+            const lpa = parseFloat(p2.val()) || 0;
+            const ohas = parseFloat(p3.val()) || 0;
+            const ohr = parseFloat(p4.val()) || 0;
+
+            let result = -6.576 + 0.04 * lpa - 0.763 * ohr + 1.248 * ohas + 0.793 * lpnp;
+
+            $('#result').val(result.toFixed(5));
+        }
+    </script>
+</body>
+</html>
